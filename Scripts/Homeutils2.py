@@ -31,4 +31,9 @@ def readFromCSV(inputFile):
             labels.append(0)    #Visitor
         else: 
             labels.append(0.5)    #Tie 
-    return featureDistionary, np.array(labels) 
+
+    visitorSamples = np.delete(np.asarray(visitorSamples[1:]),np.s_[::2], 1)
+    homeSamples=np.delete(np.asarray(homeSamples[1:]),np.s_[::2],1)
+
+    return visitorSamples, homeSamples, featureDistionary, np.array(labels)
+

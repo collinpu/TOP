@@ -16,12 +16,12 @@ def readFromCSV(inputFile):
 
     featureDistionary = {}
     featureDistionary[date[0]] = date[1:]
-    featureDistionary['Home'+homeFeatures[0][0]] = homeFeatures[0][1:]
-    featureDistionary['Visitor'+visitorFeatures[0][0]] = visitorFeatures[0][1:]
+    featureDistionary['Home '+homeFeatures[0][0].strip()] = homeFeatures[0][1:]
+    featureDistionary['Visitor '+visitorFeatures[0][0].strip()] = visitorFeatures[0][1:]
 
     for i in range(1,len(homeFeatures)):
-        featureDistionary['Home'+homeFeatures[i][0]] = np.array([int(x) for x in homeFeatures[i][1:]])
-        featureDistionary['Visitor'+visitorFeatures[i][0]] = np.array([int(x) for x in visitorFeatures[i][1:]])
+        featureDistionary['Home '+homeFeatures[i][0].strip()] = np.array([int(x) for x in homeFeatures[i][1:]])
+        featureDistionary['Visitor '+visitorFeatures[i][0].strip()] = np.array([int(x) for x in visitorFeatures[i][1:]])
 
     labels = []
     for i in range(0,featureDistionary['Home Score'].size):

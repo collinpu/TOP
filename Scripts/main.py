@@ -5,6 +5,8 @@ tf.InteractiveSession
 for x in range(1,len(sys.argv)):
     arg = sys.argv[x]
     features, labels = readFromCSV(arg)
+    print(features["Home Score"].shape)
+    
 # Define a and b as placeholders
     a = tf.placeholder(dtype=tf.int32)
     b = tf.placeholder(dtype=tf.int32)
