@@ -99,7 +99,7 @@ accuracy = []
 print predictions
 print y_test
 for i in range(0,len(y_test)): 
-    if predictions[i] == y_test[i]: 
+    if predictions[0][i] == y_test[i]: 
         accuracy.append(1)
     else: 
         accuracy.append(0)
