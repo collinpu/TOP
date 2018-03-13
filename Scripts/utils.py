@@ -124,7 +124,7 @@ def printGeneticHistory(history):
     for generation in history: 
         bestEpochs.append(int(generation[0][0]))
         bestBatchSizes.append(int(generation[0][1]))
-        bestSigmas.append(generation[0][3])
+        bestSigmas.append(generation[0][2])
         bestLayers.append(int(generation[1][0]))
         bestInitialNeurons.append(int(generation[1][1]))
         bestNodeDecay.append(generation[1][2])
