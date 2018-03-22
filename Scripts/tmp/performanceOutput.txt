@@ -1,0 +1,7 @@
+For iteration 0, [numCorrect,numFailed] : [6, 12] with parameters : [[2, 190, 3, 640, 0.38, 3.020408163265306e-05], [189.4545, 860.9]]
+For iteration 1, [numCorrect,numFailed] : [7, 8] with parameters : [[5, 205, 2, 896, 0.63, 3.020408163265306e-06], [61.81, 491.73]]
+For iteration 2, [numCorrect,numFailed] : [7, 8] with parameters : [[7, 200, 2, 896, 0.63, 3.020408163265306e-06], [60.231, 485.41]]
+For iteration 3, [numCorrect,numFailed] : [8, 10] with parameters : [[10, 195, 2, 896, 0.63, 3.020408163265306e-06], [52.7024, 454.06]]
+For iteration 4, [numCorrect,numFailed] : [6, 10] with parameters : [[12, 200, 2, 896, 0.63, 3.020408163265306e-06], [49.949, 442.04]]
+For iteration 5, [numCorrect,numFailed] : [6, 12] with parameters : [[13, 185, 2, 896, 0.63, 3.020408163265306e-06], [48.4347, 435.29]]
+For iteration 6, [numCorrect,numFailed] : [6, 12] with parameters : [[16, 175, 2, 896, 0.63, 3.020408163265306e-06], [46.1864, 425.07]]

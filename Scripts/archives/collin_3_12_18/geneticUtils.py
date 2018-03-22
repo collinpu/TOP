@@ -1,8 +1,9 @@
 import numpy as np
 from definitions import *
+
 def readAllDatasets():
     lenVisTeamDimentions = 17
-    date = []
+    dates = []
     visitorDimentions = []
     homeDimentions = []
     files = ['2010.csv','2011.csv','2012.csv','2013.csv','2014.csv','2015.csv','2016.csv']
@@ -11,7 +12,7 @@ def readAllDatasets():
     for i in range(0,len(files)): 
         samples = [line.strip('\n').strip(' ').split(',') for line in open(files[i])]
         for j in range(1,len(samples)):
-            date.append(samples[j][0])
+            dates.append(samples[j][0])
             visitorDimentions.append(samples[j][1:lenVisTeamDimentions+1])
             homeDimentions.append(samples[j][lenVisTeamDimentions+1:])
 
@@ -25,8 +26,9 @@ def readAllDatasets():
     visitorSamples = np.append(visitorDimentions,homeDimentions,1)
     allSamples = np.append(homeSamples,visitorSamples,0)
     allScores = np.append(homeScores,visitorScores)
-
-    return allSamples,allScores,date
+    allDates = np.append(dates,dates)
+ 
+    return allSamples,allScores,allDates
 
 def divideData(allSamples,allScores): 
     trainingSize = int(0.7*len(allSamples))
@@ -80,17 +82,17 @@ def printParameterStatistics(bestTrial,records,epochDictionary,batchSizeDictiona
                 " and error "+str(bestError))
     print "\nAverage MSE for each epoch permutation"
     for numEpochs,MSEs in epochDictionary.iteritems(): 
-        print "\t"+str(numEpochs)+"\t : \t"+str(np.mean(MSEs))
+        print "\t"+str(numEpochs)+" \t :  \t"+str(np.mean(MSEs))
     print "\nAverage MSE for each batch size permutation"
     for batchSize,MSEs in batchSizeDictionary.iteritems(): 
-        print "\t"+str(batchSize)+"\t : \t"+str(np.mean(MSEs))
+        print "\t"+str(batchSize)+" \t :  \t"+str(np.mean(MSEs))
     print "\nAverage MSE for each sigma permutation"
     for sigma,MSEs in sigmaDictionary.iteritems(): 
-        print "\t"+str(sigma)+"\t : \t"+str(np.mean(MSEs))
+        print "\t"+str(sigma)+" \t :  \t"+str(np.mean(MSEs))
 
     print "\nRecord of runs:"
     for x in records:
-        print("Permutation : ["+str(x[0][0])+","+str(x[0][1])+","+str(x[0][2])+"] \tError : "+str(x[1])+"  \tMSE : "+str(x[2]))
+        print("Permutation : ["+str(x[0][0])+","+str(x[0][1])+","+str(x[0][2])+"]   \tError : "+str(x[1])+"  \tMSE : "+str(x[2]))
 
 def printArchitectureStatistics(bestTrial,records,layerDictionary,initialNeuronsDictionary,layerDecayDictionary):
     bestPermutation,bestMSE,bestError = bestTrial
@@ -100,17 +102,17 @@ def printArchitectureStatistics(bestTrial,records,layerDictionary,initialNeurons
         " layer decay with an MSE of "+str(bestMSE)+" and error "+str(bestError))
     print "\nAverage MSE for each layer permutation"
     for numLayers,MSEs in layerDictionary.iteritems():
-        print "\t"+str(numLayers)+"\t : \t"+str(np.mean(MSEs))
+        print "\t"+str(numLayers)+" \t : \t "+str(np.mean(MSEs))
     print "\nAverage MSE for each initial neuron permutation"
     for initialNeurons,MSEs in initialNeuronsDictionary.iteritems():
-        print "\t"+str(initialNeurons)+"\t : \t"+str(np.mean(MSEs))
+        print "\t"+str(initialNeurons)+" \t : \t "+str(np.mean(MSEs))
     print "\nAverage MSE for each layer decay permutation"
     for layerDecay,MSEs in layerDecayDictionary.iteritems():
-        print "\t"+str(layerDecay)+"\t : \t"+str(np.mean(MSEs))
+        print "\t"+str(layerDecay)+" \t : \t "+str(np.mean(MSEs))
 
     print "\nRecord of runs:"
     for x in records:
-        print("Permutation : ["+str(x[0][0])+","+str(x[0][1])+","+str(x[0][2])+"] \tError : "+str(x[1])+"  \tMSE : "+str(x[2]))
+        print("Permutation : ["+str(x[0][0])+","+str(x[0][1])+","+str(x[0][2])+"]   \tError : "+str(x[1])+"  \tMSE : "+str(x[2]))
 
 def printGeneticHistory(history): 
     bestEpochs = []
@@ -118,7 +120,7 @@ def printGeneticHistory(history):
     bestSigmas = []
     bestLayers = []
     bestInitialNeurons = []
-    bestNodeDecay = []
+    bestNodeDecays = []
     bestMSEs = []
     bestErrors = []
     for generation in history: 
@@ -127,7 +129,7 @@ def printGeneticHistory(history):
         bestSigmas.append(generation[0][2])
         bestLayers.append(int(generation[1][0]))
         bestInitialNeurons.append(int(generation[1][1]))
-        bestNodeDecay.append(generation[1][2])
+        bestNodeDecays.append(generation[1][2])
         bestMSEs.append(round(generation[2],4))
         bestErrors.append(round(generation[3],2))
 
@@ -144,6 +146,10 @@ def printGeneticHistory(history):
     print "Initial Neuron changes : "+str(bestInitialNeurons)
     print "Node Decay changes     : "+str(bestNodeDecays)
 
+    f = open("output.txt","w")
+    f.writelines(str(bestMSEs),str(bestErrors),str(bestEpochs),str(bestBatchSizes),str(bestSigmas),\
+                    str(bestLayers),str(bestInitialNeurons),str(bestNodeDecays))
+    f.close
 def findBestParameters(trainData,trainScores,testData,testScores,bestParameters,bestArchitecture): 
     parameterPermutations = generateParameterPermutations(bestParameters)
     bestMSE = float('inf')
@@ -184,7 +190,7 @@ def findBestParameters(trainData,trainScores,testData,testScores,bestParameters,
                     testScores = [float(x) for x in testScores]
                     difference = np.subtract(predictions,testScores)
                     error = np.linalg.norm(difference)
-                    print "Error at epoch "+str(e)+" iteratiion number "+str(i)+" is: "+str(error)
+                    print "Error at epoch "+str(e)+" iteratiion number "+str(i)+" is: "+str(round(error,2))
 
         mse_final = round(net.run(mse, feed_dict={X: testData, Y: testScores}),4)
         print "Final MSE for "+str(epochs)+" epochs, "+str(batch_size)+" batch size, and "+str(sigma)+" sigma is :"+str(mse_final)
@@ -248,7 +254,7 @@ def findBestArchitecture(trainData,trainScores,testData,testScores,bestParameter
                     testScores = [float(x) for x in testScores]
                     difference = np.subtract(predictions,testScores)
                     error = np.linalg.norm(difference)
-                    print "Error at epoch "+str(e)+" iteratiion number "+str(i)+" is: "+str(error)
+                    print "Error at epoch "+str(e)+" iteratiion number "+str(i)+" is: "+str(round(error,2))
 
         mse_final = round(net.run(mse, feed_dict={X: testData, Y: testScores}),4)
         print "Final MSE for "+str(numLayers)+" layers, "+str(initialNeurons)+" initial layer, and "+str(layerDecay)+" layerDecay is :"+str(mse_final)
