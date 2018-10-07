@@ -1,9 +1,9 @@
 WHAT IS TOP
-TOP (Trojan Outcomes Predictor) was my brainchild that I worked on with two other CS Masters students at USC. It is a self tuning simple DNN framework optimized to predict USC's football outcomes for the 2018-2019 season. I was motivated to make this project because I was facinated by the potential of a self tuning neural network and wanted to apply some of the optimization methods I was learning in my AI and ML classes. TOP was suspended when I was hired at The Aerospace Corporation. If I were to ever revisit it I would explore using more sophisicaled local search algorithms such as beam search in addition to the genetic inheritance I have now, I would restructure our dataset to exploite temporal features of our data, and use GRU or LSTM networks to exploit that temporality. 
+TOP (Trojan Outcomes Predictor) was my brainchild that I worked on with two other CS Masters students at USC. It is a self-tuning simple DNN framework optimized to predict USC's football outcomes for the 2018-2019 season. I was motivated to make this project because I was fascinated by the potential of a self-tuning neural network and wanted to apply some of the optimization methods I was learning in my AI and ML courses. TOP was suspended when I was hired at The Aerospace Corporation. If I were to ever revisit it I would explore using more sophisticated local search algorithms such as beam search in addition to the genetic inheritance I have now, I would restructure our dataset to exploit temporal features of our data, and use GRU or LSTM networks to exploit that temporality. 
 
 FILE STRUCTURE
 Datasets/
-  Collection of some of the csv's we compiled and some webscrappers
+  Collection of some of the csv's we compiled and some web scrapers
 Scripts/ 
   GeneticSweepMain.py : Main function. Uses two passes to optimize the hyperparameters during the grid search. 
                   The first pass is for extrinsic hyperparameters, and the second pass is for intrinsic hyperparameters
@@ -13,3 +13,4 @@ Scripts/
   SweeperFunctions.py : File that does the genetic grid search
   TestDatasetMain.py : Main function that runs the best network found by calling geneticSweepMain.py on USC's 2017 games
   TestDatasetUtils.py : Header file for TestDatasetMain.py, contains helper functions to keep the main file clean
+
